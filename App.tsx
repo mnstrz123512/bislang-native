@@ -6,36 +6,59 @@ import {NavigationContainer} from '@react-navigation/native';
 import Login from './screens/Login';
 import Dashboard from './screens/Dashboard';
 import {RootStackParamList} from './types';
-import Modules from '@screens/Modules';
+import ModuleNavigator from '@screens/Module/Navigator';
 import {PaperProvider} from 'react-native-paper';
+import AuthProvider from '@components/authentication/Provider';
+import {QueryClient, QueryClientProvider} from 'react-query';
+import SplashScreen from '@components/SplashScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App(): React.JSX.Element {
+  const queryClient = new QueryClient();
+
   return (
-    <PaperProvider>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              headerShown: false,
-            }}
-          />
+    <QueryClientProvider client={queryClient}>
+      <PaperProvider>
+        <AuthProvider>
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="SplashScreen"
+                component={SplashScreen}
+                options={{
+                  headerShown: false,
+                }}
+              />
 
-          <Stack.Screen
-            name="Dashboard"
-            component={Dashboard}
-            options={{
-              headerShown: false,
-            }}
-          />
+              <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{
+                  headerShown: false,
+                }}
+              />
 
-          <Stack.Screen name="Module" component={Modules} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
+              <Stack.Screen
+                name="Dashboard"
+                component={Dashboard}
+                options={{
+                  headerShown: false,
+                }}
+              />
+
+              <Stack.Screen
+                name="Module"
+                component={ModuleNavigator}
+                options={{
+                  headerShown: false,
+                }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </AuthProvider>
+      </PaperProvider>
+    </QueryClientProvider>
   );
 }
 

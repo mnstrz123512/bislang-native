@@ -3,6 +3,8 @@ import {View} from 'react-native';
 import React from 'react';
 import {List, ProgressBar} from 'react-native-paper';
 import styled from '@emotion/native';
+import {useNavigation} from '@react-navigation/native';
+import {ModuleNavigatorProps} from '@screens/Module/Navigator';
 
 interface Page {
   title: string;
@@ -31,6 +33,7 @@ const CompletedBadge = styled.Image`
 `;
 
 const ModuleList = ({items}: ModuleListProps) => {
+  const {navigate} = useNavigation<ModuleNavigatorProps>();
   return (
     <View>
       <List.AccordionGroup>
@@ -52,7 +55,11 @@ const ModuleList = ({items}: ModuleListProps) => {
                 key={`${item.title}-${page.title}`}
                 title={page.title}
                 onPress={() => {
-                  console.log('Pressed');
+                  navigate('SubModule', {
+                    screenOptions: {
+                      title: page.title,
+                    },
+                  });
                 }}
                 right={() => {
                   if (page.is_completed) {

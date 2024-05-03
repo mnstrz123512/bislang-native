@@ -3,6 +3,14 @@ module.exports = {
   plugins: [
     ['react-native-paper/babel'],
     [
+      'module:react-native-dotenv',
+      {
+        envName: 'APP_ENV',
+        moduleName: '@env',
+        path: '.env',
+      },
+    ],
+    [
       'module-resolver',
       {
         root: ['.'],
@@ -10,6 +18,7 @@ module.exports = {
           '@components': './components',
           '@screens': './screens',
           '@hooks': './hooks',
+          '@services': './services',
         },
       },
     ],
