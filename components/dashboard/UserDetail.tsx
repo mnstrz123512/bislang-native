@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Avatar, Button, Text, ProgressBar} from 'react-native-paper';
+import {Avatar, Button, Text} from 'react-native-paper';
 import styled from '@emotion/native';
 import {useAuth} from '@components/authentication/Provider';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -15,16 +15,6 @@ const Container = styled.View`
 
 const TextContainer = styled.View`
   align-items: left;
-`;
-
-const ProgressBarContainer = styled.View`
-  margin-top: 20px;
-`;
-
-const StyledProgressBar = styled(ProgressBar)`
-  margin-top: 20px;
-  height: 15px;
-  width: 100%;
 `;
 
 const UserDetailContainer = styled.View`
@@ -60,7 +50,7 @@ const UserDetail = () => {
         <TextContainer>
           <Text variant="headlineMedium">{`${rest.firstName} ${rest.lastName}`}</Text>
           <Text variant="bodyMedium">{rest.emailAddress}</Text>
-          <Button mode="text">Edit Account Info</Button>
+          {/* <Button mode="text">Edit Account Info</Button> */}
           <Button
             mode="text"
             onPress={() => {
@@ -75,10 +65,6 @@ const UserDetail = () => {
           </Button>
         </TextContainer>
       </Container>
-      <ProgressBarContainer>
-        <Text>Current Progress:</Text>
-        <StyledProgressBar progress={0.5} color={'#4CDF5B'} />
-      </ProgressBarContainer>
     </UserDetailContainer>
   );
 };

@@ -11,6 +11,7 @@ import {PaperProvider} from 'react-native-paper';
 import AuthProvider from '@components/authentication/Provider';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import SplashScreen from '@components/SplashScreen';
+import GameNavigator from '@screens/game/Navigator';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -50,6 +51,14 @@ function App(): React.JSX.Element {
               <Stack.Screen
                 name="Module"
                 component={ModuleNavigator}
+                options={{
+                  headerShown: false,
+                }}
+              />
+
+              <Stack.Screen
+                name="Game"
+                component={GameNavigator}
                 options={{
                   headerShown: false,
                 }}

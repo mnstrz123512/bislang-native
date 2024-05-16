@@ -14,7 +14,7 @@ const ActivityContainer = styled.View<ContainerProps>`
   flex-direction: ${props => (props.isMobile ? 'column' : 'row')};
   flex-wrap: wrap;
   justify-content: space-around;
-  margin-top: 20px;
+  margin-top: 60px;
   gap: 20px;
 `;
 
@@ -67,7 +67,11 @@ const Activities = () => {
           <Text variant="bodySmall">(Module)</Text>
         </ActivityInnerContainer>
       </ActivityItem>
-      <ActivityItem color="#BAD795">
+      <ActivityItem
+        color="#BAD795"
+        onPress={() => {
+          navigate.navigate('Game');
+        }}>
         <ActivityInnerContainer>
           <StyledImage
             source={require('../../assets/images/game-controller.png')}

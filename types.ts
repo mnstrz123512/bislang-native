@@ -3,6 +3,7 @@ type RootStackParamList = {
   Login: undefined;
   Dashboard: undefined;
   Module: undefined;
+  Game: undefined;
 };
 
 type ModuleStackParamList = {
@@ -15,6 +16,23 @@ type ModuleStackParamList = {
   };
 };
 
+type GameStackParamList = {
+  TypeList: undefined;
+  List: ListParams;
+  PlayGame: PlayGameParams;
+};
+
+type ListParams = {
+  type: number;
+  title: string;
+  subTitle: string;
+};
+
+interface PlayGameParams extends ListParams {
+  id: number;
+  type: number;
+}
+
 interface User {
   first_name: string;
   last_name: string;
@@ -26,4 +44,12 @@ interface AuthToken {
   refresh_token: string;
 }
 
-export type {RootStackParamList, ModuleStackParamList, User, AuthToken};
+export type {
+  RootStackParamList,
+  ModuleStackParamList,
+  User,
+  AuthToken,
+  GameStackParamList,
+  ListParams,
+  PlayGameParams,
+};
