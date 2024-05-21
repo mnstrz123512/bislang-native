@@ -54,18 +54,18 @@ const GameTypeList = () => {
       ) : (
         data?.map(
           (
-            {name, description, completed_games, total_games}: any,
+            {id, name, description, completed_games, total_games}: any,
             index: number
           ) => (
             <Item
               key={index}
               title={name}
               subTitle={description}
-              progress={completed_games}
+              progress={total_games < 1 ? 0 : completed_games / total_games}
               total={total_games}
               onPress={() => {
                 navigate.navigate('List', {
-                  type: 1,
+                  type: id,
                   title: name,
                   subTitle: description,
                 });
