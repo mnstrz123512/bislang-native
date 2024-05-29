@@ -1,85 +1,82 @@
+import React, {useCallback, useEffect} from 'react';
 import styled from '@emotion/native';
-import React from 'react';
+import LinearGradient from 'react-native-linear-gradient';
+import Item from '@components/game/type/Item';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {ModuleStackParamList} from 'types';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {Text, ActivityIndicator} from 'react-native-paper';
+import {useModules} from '@services/queries/module';
 
-import useIsMobile from '@hooks/useIsMobile';
-import ModuleList from '@components/module/List';
-
-interface ContainerProps {
-  isMobile: boolean;
-}
-const Container = styled.ScrollView<ContainerProps>`
+const GameTypeListContainer = styled(LinearGradient)`
   flex: 1;
-  background-color: #ffff;
+  padding: 20px;
 `;
 
-const moduleList = [
-  {
-    title: 'Module 1',
-    pages: [
-      {
-        title: 'First item',
-        progress: 100,
-        is_completed: true,
-      },
-      {
-        title: 'Second item',
-        progress: 100,
-        is_completed: true,
-      },
-      {
-        title: 'Third item',
-        progress: 100,
-        is_completed: true,
-      },
-    ],
-    is_completed: true,
-  },
-  {
-    title: 'Module 2',
-    pages: [
-      {
-        title: 'First item',
-        progress: 100,
-        is_completed: true,
-      },
-      {
-        title: 'Second item',
-        progress: 42,
-        is_completed: false,
-      },
-      {
-        title: 'Third item',
-        progress: 55,
-        is_completed: false,
-      },
-    ],
-    is_completed: false,
-  },
-  {
-    title: 'Module 3',
-    pages: [
-      {
-        title: 'First item',
-        progress: 100,
-        is_completed: true,
-      },
-      {
-        title: 'Second item',
-        progress: 65,
-        is_completed: false,
-      },
-      {
-        title: 'Third item',
-        is_completed: false,
-      },
-    ],
-    is_completed: false,
-  },
-];
-export default function Modules() {
-  return (
-    <Container isMobile={useIsMobile()}>
-      <ModuleList items={moduleList} />
-    </Container>
+type ActivityNavigationProps = StackNavigationProp<
+  ModuleStackParamList,
+  'List'
+>;
+
+const LoadingContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+const GameTypeList = () => {
+  const navigate = useNavigation<ActivityNavigationProps>();
+  const {data, isLoading, isError, refetch} = useModules();
+  useEffect(() => {
+    if (isError) {
+      console.error('Error fetching modules');
+    }
+  }, [isError]);
+
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
   );
-}
+
+  return (
+    <GameTypeListContainer
+      colors={['#ffa500', '#ffa500', 'white']}
+      start={{x: 0, y: 0}}
+      end={{x: 0, y: 1}}
+      locations={[0, 0.5, 0.5]}>
+      {isLoading ? (
+        <LoadingContainer>
+          <ActivityIndicator size="large" color="#0000ff" />
+          <Text>Loading...</Text>
+        </LoadingContainer>
+      ) : (
+        data?.map(
+          (
+            {id, name, total_pages, total_completed_pages}: any,
+            index: number
+          ) => (
+            <Item
+              key={index}
+              title={name}
+              subTitle={''}
+              completed={total_completed_pages}
+              total={total_pages}
+              onPress={() => {
+                navigate.navigate('PageList', {
+                  module_id: id,
+                  screenOptions: {
+                    title: name,
+                  },
+                });
+              }}
+            />
+          )
+        )
+      )}
+    </GameTypeListContainer>
+  );
+};
+
+export default GameTypeList;

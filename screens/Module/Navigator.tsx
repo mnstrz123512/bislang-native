@@ -3,8 +3,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import List from './List';
 import ModuleProvider from './Provider';
 import {ModuleStackParamList} from 'types';
-import SubModule from './SubModule';
+import PageList from './PageList';
 import {StackNavigationProp} from '@react-navigation/stack';
+import Page from './Page';
+import SoundButton from '@components/SoundButton';
 
 const ModuleStack = createNativeStackNavigator<ModuleStackParamList>();
 
@@ -21,10 +23,20 @@ const ModuleNavigator = () => (
         }}
       />
       <ModuleStack.Screen
-        name="SubModule"
-        component={SubModule}
+        name="PageList"
+        component={PageList}
         options={({route}) => ({
-          title: route.params.screenOptions?.title || 'Sub Module',
+          title: route.params.screenOptions?.title,
+        })}
+      />
+      <ModuleStack.Screen
+        name="Page"
+        component={Page}
+        options={({route}) => ({
+          title: route.params.screenOptions?.title,
+          ...(route.params.audio && {
+            headerRight: () => <SoundButton soundUrl={route.params.audio} />,
+          }),
         })}
       />
     </ModuleStack.Navigator>

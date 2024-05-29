@@ -31,8 +31,6 @@ type UserDetailNavigationProps = StackNavigationProp<
 const UserDetail = () => {
   const {logout, ...rest} = useAuth();
 
-  console.log(rest);
-
   const navigate = useNavigation<UserDetailNavigationProps>();
   return (
     <UserDetailContainer>
@@ -50,7 +48,9 @@ const UserDetail = () => {
         <TextContainer>
           <Text variant="headlineMedium">{`${rest.firstName} ${rest.lastName}`}</Text>
           <Text variant="bodyMedium">{rest.emailAddress}</Text>
-          {/* <Button mode="text">Edit Account Info</Button> */}
+          <Button mode="text" onPress={() => navigate.navigate('Profile')}>
+            Badge Profile
+          </Button>
           <Button
             mode="text"
             onPress={() => {

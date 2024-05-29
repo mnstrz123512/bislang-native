@@ -6,12 +6,13 @@ import {NavigationContainer} from '@react-navigation/native';
 import Login from './screens/Login';
 import Dashboard from './screens/Dashboard';
 import {RootStackParamList} from './types';
-import ModuleNavigator from '@screens/Module/Navigator';
+import ModuleNavigator from '@screens/module/Navigator';
 import {PaperProvider} from 'react-native-paper';
 import AuthProvider from '@components/authentication/Provider';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import SplashScreen from '@components/SplashScreen';
 import GameNavigator from '@screens/game/Navigator';
+import Profile from '@screens/Profile';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -47,6 +48,8 @@ function App(): React.JSX.Element {
                   headerShown: false,
                 }}
               />
+
+              <Stack.Screen name="Profile" component={Profile} />
 
               <Stack.Screen
                 name="Module"

@@ -4,16 +4,29 @@ type RootStackParamList = {
   Dashboard: undefined;
   Module: undefined;
   Game: undefined;
+  Profile: undefined;
+};
+
+type PageListParams = {
+  module_id: number;
+  screenOptions?: {
+    title: string;
+  };
+};
+
+type PageParams = {
+  module_id: number;
+  page_id: number;
+  audio: string;
+  screenOptions?: {
+    title: string;
+  };
 };
 
 type ModuleStackParamList = {
   List: undefined;
-  Page: undefined;
-  SubModule: {
-    screenOptions?: {
-      title: string;
-    };
-  };
+  PageList: PageListParams;
+  Page: PageParams;
 };
 
 type GameStackParamList = {
@@ -52,4 +65,6 @@ export type {
   GameStackParamList,
   ListParams,
   PlayGameParams,
+  PageListParams,
+  PageParams,
 };

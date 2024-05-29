@@ -72,6 +72,7 @@ const List = () => {
       refetch();
     }, [refetch])
   );
+
   return (
     <ListContainer>
       <TextHeader>{params?.subTitle}</TextHeader>

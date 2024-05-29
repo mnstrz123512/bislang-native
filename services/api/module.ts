@@ -1,16 +1,14 @@
-import {UserProgressProps} from '@services/types';
+import {ModuleUserProgress} from '@services/types';
 import axios, {baseURL} from '../../apiClient';
 
-const getGameTypes = async (
-  accessToken: string | null | undefined
-): Promise<any> => {
+const getModules = async (accessToken: string | null | undefined) => {
   const headers: Record<string, string> = {};
   if (accessToken) {
     headers.Authorization = `Bearer ${accessToken}`;
   }
 
   try {
-    const response = await axios.get(`${baseURL}/games/type/`, {
+    const response = await axios.get(`${baseURL}/modules`, {
       headers,
     });
 
@@ -20,20 +18,23 @@ const getGameTypes = async (
   }
 };
 
-const getGames = async (
+const getPages = async (
   accessToken: string | null | undefined,
   params: Record<string, string>
-): Promise<any> => {
+) => {
   const headers: Record<string, string> = {};
   if (accessToken) {
     headers.Authorization = `Bearer ${accessToken}`;
   }
 
   try {
-    const response = await axios.get(`${baseURL}/games`, {
-      headers,
-      params,
-    });
+    const response = await axios.get(
+      `${baseURL}/modules/${params.module_id}/pages`,
+      {
+        headers,
+        params,
+      }
+    );
 
     return response.data;
   } catch (error: any) {
@@ -41,19 +42,22 @@ const getGames = async (
   }
 };
 
-const getGameDetail = async (
+const getPage = async (
   accessToken: string | null | undefined,
-  id: number
-): Promise<any> => {
+  params: Record<string, string>
+) => {
   const headers: Record<string, string> = {};
   if (accessToken) {
     headers.Authorization = `Bearer ${accessToken}`;
   }
 
   try {
-    const response = await axios.get(`${baseURL}/games/${id}`, {
-      headers,
-    });
+    const response = await axios.get(
+      `${baseURL}/modules/${params.module_id}/pages/${params.page_id}`,
+      {
+        headers,
+      }
+    );
 
     return response.data;
   } catch (error: any) {
@@ -61,10 +65,10 @@ const getGameDetail = async (
   }
 };
 
-const postGameUserProgress = async (
+const postModuleUserProgress = async (
   accessToken: string | null | undefined,
-  options: UserProgressProps
-): Promise<any> => {
+  options: ModuleUserProgress
+) => {
   const headers: Record<string, string> = {};
   if (accessToken) {
     headers.Authorization = `Bearer ${accessToken}`;
@@ -72,10 +76,9 @@ const postGameUserProgress = async (
 
   try {
     const response = await axios.post(
-      `${baseURL}/games/progress/`,
+      `${baseURL}/modules/${options.module_id}/pages/${options.page_id}/progress/`,
       {
         is_completed: options.is_completed,
-        game: options.id,
       },
       {
         headers,
@@ -88,4 +91,4 @@ const postGameUserProgress = async (
   }
 };
 
-export {getGameTypes, getGames, getGameDetail, postGameUserProgress};
+export {getModules, getPages, getPage, postModuleUserProgress};

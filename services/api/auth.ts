@@ -25,4 +25,24 @@ const signIn = async (email: string, password: string): Promise<any> => {
   }
 };
 
-export {signInViaGoogle, signIn};
+const getBadges = async (
+  accessToken: string | null | undefined
+): Promise<any> => {
+  const headers: Record<string, string> = {};
+
+  if (accessToken) {
+    headers.Authorization = `Bearer ${accessToken}`;
+  }
+
+  try {
+    const response = await axios.get(`${baseURL}/auth/achievements/badges/`, {
+      headers,
+    });
+
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
+export {signInViaGoogle, signIn, getBadges};

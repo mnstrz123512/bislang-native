@@ -9,7 +9,7 @@ import {useFormik} from 'formik';
 import * as yup from 'yup';
 import {StackNavigationProp} from '@react-navigation/stack';
 import CompleteIcon from '@assets/images/svg/complete_icon.svg';
-import {useUserProgress} from '@services/mutations/game';
+import {useGameUserProgress} from '@services/mutations/game';
 
 const GameContainer = styled.View`
   padding: 20px;
@@ -85,7 +85,7 @@ const Game: React.FC = () => {
   const [hasStarted, setHasStarted] = useState<boolean>(false);
   const [visible, setVisible] = useState(false);
 
-  const userProgress = useUserProgress();
+  const userProgress = useGameUserProgress();
   const showModal = () => {
     setVisible(true);
     userProgress.mutate({

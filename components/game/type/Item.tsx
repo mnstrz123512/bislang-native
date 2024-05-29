@@ -42,26 +42,26 @@ const StyledProgressBar = styled(ProgressBar)`
 interface ItemProps {
   title: string;
   subTitle: string;
-  progress: number;
   total: number;
+  completed: number;
   onPress?: () => void;
 }
 
-const Item = ({title, subTitle, progress, total, onPress}: ItemProps) => {
+const Item = ({title, subTitle, total, completed, onPress}: ItemProps) => {
   return (
     <ItemContainer onPress={onPress}>
       <ItemHeader>{title}</ItemHeader>
-      <SubHeader>({subTitle})</SubHeader>
+      {subTitle ? <SubHeader>({subTitle})</SubHeader> : null}
       <ItemDetailContainer>
         <ItemLabel>Progress</ItemLabel>
         <Text>
-          {progress}/{total}
+          {completed}/{total}
         </Text>
       </ItemDetailContainer>
       <ItemDetailContainer>
         <ItemLabel>Completed</ItemLabel>
       </ItemDetailContainer>
-      <StyledProgressBar progress={progress / total} color={'#4CDF5B'} />
+      <StyledProgressBar progress={completed / total} color={'#4CDF5B'} />
     </ItemContainer>
   );
 };
