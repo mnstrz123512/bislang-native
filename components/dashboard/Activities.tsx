@@ -14,7 +14,7 @@ const ActivityContainer = styled.View<ContainerProps>`
   flex-direction: ${props => (props.isMobile ? 'column' : 'row')};
   flex-wrap: wrap;
   justify-content: space-around;
-  margin-top: 60px;
+  margin-top: 30px;
   gap: 20px;
 `;
 

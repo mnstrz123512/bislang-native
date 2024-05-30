@@ -10,7 +10,7 @@ const Container = styled.View`
   align-items: center;
   flex-direction: row;
   gap: 20px;
-  background: #ffa500;
+  background: #F98866;
 `;
 
 const DetailContainer = styled.View`

@@ -69,7 +69,7 @@ const StyledButton = styled(Button)`
   justify-content: center;
   align-items: center;
   background-color: ${({ buttonColor }) => buttonColor || '#FEEFAD'};
-  border: 0.5px solid #ffa500;
+  border: 0.3px solid #ffa500;
   border-radius: 12px;
 `;
 
