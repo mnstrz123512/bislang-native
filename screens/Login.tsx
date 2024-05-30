@@ -1,11 +1,14 @@
 import React from 'react';
 import styled from '@emotion/native';
-import {Dimensions} from 'react-native';
+import {Dimensions, Image} from 'react-native';
 import LoginForm from '../components/authentication/LoginForm';
 
 interface ContainerProps {
   isMobile: boolean;
 }
+//null-size
+const StyledImage = styled.Image`
+`;
 const Container = styled.View((props: ContainerProps) => ({
   backgroundColor: '#FFA500',
   flex: 1,
@@ -21,7 +24,8 @@ const InnerContainer = styled.View((props: ContainerProps) => ({
   borderTopRightRadius: 50,
   borderBottomLeftRadius: props.isMobile ? 0 : 50,
   borderBottomRightRadius: props.isMobile ? 0 : 50,
-  alignItems: 'center',
+  alignItems: 'center', // Center the image horizontally
+  justifyContent: 'center',
   padding: 50,
 }));
 
@@ -32,13 +36,19 @@ const HeaderText = styled.Text`
   margin-bottom: 30px;
 `;
 
+
 const Login = () => {
   const width = Dimensions.get('window').width;
 
   const isMobile = width < 768;
 
   return (
+    
     <Container isMobile={isMobile}>
+      <StyledImage
+            source={require('./../assets/images/tane.png')}
+          />
+
       <InnerContainer isMobile={isMobile}>
         <HeaderText>Login to your account</HeaderText>
         <LoginForm />

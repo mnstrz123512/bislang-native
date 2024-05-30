@@ -21,19 +21,20 @@ const ActivityContainer = styled.View<ContainerProps>`
 const ActivityInnerContainer = styled.View`
   align-items: center;
 `;
-
+/* design for button of module and games in main dashboard*/
 const ActivityItem = styled(TouchableRipple)<{color: string}>`
   background-color: ${props => props.color};
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 40px;
   margin-bottom: 10px;
 
   align-items: center;
   justify-content: center;
-
+  border: 2px solid #ffa500;
   height: 250px
-  width: 250px;
+  width: 300px;
   padding: 20px;
+  
 `;
 
 const StyledImage = styled.Image`
@@ -68,7 +69,7 @@ const Activities = () => {
         </ActivityInnerContainer>
       </ActivityItem>
       <ActivityItem
-        color="#BAD795"
+        color="#92d1f0"
         onPress={() => {
           navigate.navigate('Game');
         }}>
@@ -76,8 +77,8 @@ const Activities = () => {
           <StyledImage
             source={require('../../assets/images/game-controller.png')}
           />
-          <Text style={{marginTop: 20}} variant="titleLarge">
-            Dula
+          <Text style={{marginTop: 3}} variant="titleLarge">
+            Duwa
           </Text>
           <Text variant="bodySmall">(Game)</Text>
         </ActivityInnerContainer>

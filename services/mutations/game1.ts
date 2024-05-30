@@ -3,7 +3,7 @@ import {postUserProgress} from '@services/api/game';
 import {UserProgressProps} from '@services/types';
 import {useMutation} from 'react-query';
 
-const useUserProgress = () => {
+const useUserProgress1 = () => {
   const {accessToken} = useAuth();
 
   return useMutation(async (options: UserProgressProps) => {
@@ -11,4 +11,4 @@ const useUserProgress = () => {
   });
 };
 
-export {useUserProgress};
+export {useUserProgress1};

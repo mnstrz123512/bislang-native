@@ -1,19 +1,13 @@
-import {View} from 'react-native';
+import {View, Modal} from 'react-native';
 import styled from '@emotion/native';
-import React from 'react';
-import {Button} from 'react-native-paper';
-// import { loginValidation } from './validation';
+import React, {useState} from 'react';
+import {Button, Text} from 'react-native-paper';
 import {FormikProvider, useFormik} from 'formik';
 import InputField from '../fields/InputField';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-// import { Image } from 'expo-image';
-// import useIsMobile from '@/hooks/useIsMobile';
 import {RootStackParamList} from '../../types';
-import {
-  GoogleSignin,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
+import {GoogleSignin, statusCodes} from '@react-native-google-signin/google-signin';
 import {useSignIn, useSignInViaGoogle} from '@services/mutations/auth';
 import {useAuth} from './Provider';
 
@@ -29,6 +23,13 @@ const SignInOptions = styled.View`
   gap: 20px;
   align-items: center;
 `;
+
+const CloseButton = styled(Button)`
+  margin-top: 20px;
+  width: 50%;
+  align-self: center;
+`;
+
 type LoginFormNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
 
 GoogleSignin.configure({
@@ -42,6 +43,7 @@ const LoginForm = () => {
   const signInWithGoogle = useSignInViaGoogle();
   const signIn = useSignIn();
   const {processLogin} = useAuth();
+  const [forgotPasswordModalVisible, setForgotPasswordModalVisible] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -103,15 +105,9 @@ const LoginForm = () => {
           Login
         </LoginButton>
 
-        <View>
-          <Button>Forgot your password?</Button>
-          <Button
-            onPress={() => {
-              // navigate.navigate('Register')
-            }}>
-            Don't have an account?
-          </Button>
-        </View>
+        <Button onPress={() => setForgotPasswordModalVisible(true)}>
+          Forgot your password?
+        </Button>
 
         <SignInOptions>
           <Button onPress={handleGoogleSignIn} icon={'google'}>
@@ -119,6 +115,18 @@ const LoginForm = () => {
           </Button>
         </SignInOptions>
       </FormContainer>
+
+      <Modal visible={forgotPasswordModalVisible} onDismiss={() => setForgotPasswordModalVisible(false)} transparent>
+  <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)'}}>
+    <View style={{backgroundColor: 'white', padding: 30, borderRadius: 20}}>
+      <Text adjustsFontSizeToFit minimumFontScale={0.5}>Forgot Password?</Text>
+      <Text adjustsFontSizeToFit minimumFontScale={0.5}> </Text>
+      <Text adjustsFontSizeToFit minimumFontScale={30}>"Kindly contact admin@gmail.com for assistance with resetting your password."</Text>
+      {/* Add your forgot password form here */}
+      <Button onPress={() => setForgotPasswordModalVisible(false)}>Close</Button>
+    </View>
+  </View>
+</Modal>
     </FormikProvider>
   );
 };

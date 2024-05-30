@@ -61,7 +61,7 @@ const getGameDetail = async (
   }
 };
 
-const postGameUserProgress = async (
+const postUserProgress = async (
   accessToken: string | null | undefined,
   options: UserProgressProps
 ): Promise<any> => {
@@ -88,4 +88,4 @@ const postGameUserProgress = async (
   }
 };
 
-export {getGameTypes, getGames, getGameDetail, postGameUserProgress};
+export {getGameTypes, getGames, getGameDetail, postUserProgress};

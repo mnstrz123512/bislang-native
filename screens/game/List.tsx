@@ -1,33 +1,29 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import styled from '@emotion/native';
-import {Text} from 'react-native-paper';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {GameStackParamList, ListParams} from 'types';
-import {
-  useFocusEffect,
-  useNavigation,
-  useRoute,
-} from '@react-navigation/native';
-import {useGames} from '@services/queries/game';
+import { Text, ScrollView } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { GameStackParamList, ListParams } from 'types';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
+import { useGames } from '@services/queries/game';
 import GameCompleted from '@assets/images/svg/complete_icon.svg';
+import { ImageBackground } from 'react-native';
 
 const TextHeader = styled(Text)`
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
   align-self: center;
+  margin-top: 40px;
 `;
 
 const TextSubHeader = styled(Text)`
   font-size: 14px;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   align-self: center;
 `;
 
 const ListContainer = styled.View`
-  padding: 20px;
-  background-color: #ffff;
   flex: 1;
 `;
 
@@ -65,7 +61,7 @@ type ListNavigationProps = StackNavigationProp<GameStackParamList, 'List'>;
 const List = () => {
   const navigate = useNavigation<ListNavigationProps>();
   const params = useRoute().params as ListParams;
-  const {data, refetch} = useGames(params.type);
+  const { data, refetch } = useGames(params.type);
 
   useFocusEffect(
     useCallback(() => {
@@ -74,33 +70,37 @@ const List = () => {
   );
 
   return (
-    <ListContainer>
-      <TextHeader>{params?.subTitle}</TextHeader>
-      <TextSubHeader>({params?.title})</TextSubHeader>
-      <GameList>
-        {data?.map(({id, is_completed}: any, index: number) => (
-          <GameItem
-            key={index}
-            disabled={is_completed}
-            onPress={() => {
-              navigate.navigate('PlayGame', {
-                id,
-                type: params?.type,
-                title: params?.title,
-                subTitle: params?.subTitle,
-              });
-            }}>
-            <ItemTextContainer>
-              {is_completed ? (
-                <GameCompleted />
-              ) : (
-                <GameItemText>{index + 1}</GameItemText>
-              )}
-            </ItemTextContainer>
-          </GameItem>
-        ))}
-      </GameList>
-    </ListContainer>
+    <ImageBackground source={require('../../assets/images/orings.png')} style={{ flex: 1 }}>
+      <ScrollView>
+        <ListContainer>
+          <TextHeader>{params?.subTitle}</TextHeader>
+          <TextSubHeader>({params?.title})</TextSubHeader>
+          <GameList>
+            {data?.map(({ id, is_completed }: any, index: number) => (
+              <GameItem
+                key={index}
+                disabled={is_completed}
+                onPress={() => {
+                  navigate.navigate('PlayGame', {
+                    id,
+                    type: params?.type,
+                    title: params?.title,
+                    subTitle: params?.subTitle,
+                  });
+                }}>
+                <ItemTextContainer>
+                  {is_completed ? (
+                    <GameCompleted />
+                  ) : (
+                    <GameItemText>{index + 1}</GameItemText>
+                  )}
+                </ItemTextContainer>
+              </GameItem>
+            ))}
+          </GameList>
+        </ListContainer>
+      </ScrollView>
+    </ImageBackground>
   );
 };
 

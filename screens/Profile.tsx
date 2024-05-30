@@ -1,9 +1,10 @@
 import React from 'react';
-import {useAuth} from '@components/authentication/Provider';
-import {Avatar, Text} from 'react-native-paper';
+import { ScrollView } from 'react-native';
+import { useAuth } from '@components/authentication/Provider';
+import { Avatar, Text } from 'react-native-paper';
 import styled from '@emotion/native';
-import {Image, View} from 'react-native';
-import {useBadges} from '@services/queries/auth';
+import { Image, View } from 'react-native';
+import { useBadges } from '@services/queries/auth';
 
 const Container = styled.View`
   align-items: center;
@@ -29,15 +30,17 @@ const BadgeSectionContainer = styled.View`
 `;
 
 const BadgesContainer = styled.View`
-  margin: 25px;
+  flex-wrap: wrap;
   flex-direction: row;
-  gap: 20px;
+  justify-content: flex-start;
 `;
+
 const BadgeHeader = styled(Text)`
   font-size: 24px;
   font-weight: bold;
-  mrgin-bottom: 25px;
+  margin-bottom: 25px;
 `;
+
 const StyledText = styled(Text)`
   font-weight: bold;
 `;
@@ -47,7 +50,7 @@ const BadgeInnerContainer = styled.View`
   margin-bottom: 25px;
   align-items: center;
   justify-content: center;
-  width: 100px;
+  width: 33.33%; /* Each badge container takes up one-third of the space */
 `;
 
 const StyledImage = styled(Image)`
@@ -56,16 +59,16 @@ const StyledImage = styled(Image)`
 `;
 
 const Profile = () => {
-  const {firstName, lastName, profileImage, emailAddress} = useAuth();
+  const { firstName, lastName, profileImage, emailAddress } = useAuth();
 
-  const {data} = useBadges();
+  const { data } = useBadges();
 
   return (
-    <View>
+    <ScrollView>
       <Container>
         <DetailContainer>
           {profileImage ? (
-            <Avatar.Image size={100} source={{uri: profileImage}} />
+            <Avatar.Image size={100} source={{ uri: profileImage }} />
           ) : (
             <Avatar.Text size={100} label={`${firstName} ${lastName}`} />
           )}
@@ -80,13 +83,13 @@ const Profile = () => {
         <BadgesContainer>
           {data?.map((badge: any) => (
             <BadgeInnerContainer key={badge.id}>
-              <StyledImage source={{uri: badge.image}} />
+              <StyledImage source={{ uri: badge.image }} />
               <Text>{badge.name}</Text>
             </BadgeInnerContainer>
           ))}
         </BadgesContainer>
       </BadgeSectionContainer>
-    </View>
+    </ScrollView>
   );
 };
 

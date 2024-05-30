@@ -1,11 +1,10 @@
-/* eslint-disable react/no-unstable-nested-components */
-import {View} from 'react-native';
+import { View } from 'react-native';
 import React from 'react';
-import {List} from 'react-native-paper';
+import { List } from 'react-native-paper';
 import styled from '@emotion/native';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {ModuleNavigatorProps} from '@screens/module/Navigator';
-import {PageListParams} from 'types';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { ModuleNavigatorProps } from '@screens/module/Navigator';
+import { PageListParams } from 'types';
 
 interface Page {
   id: number;
@@ -18,42 +17,66 @@ interface Page {
 
 interface ModuleListProps {
   items: Page[];
+  fontSize?: number;
 }
 
 const CompletedBadge = styled.Image`
-  width: 25px;
-  height: 25px;
+  width: 35px;
+  height: 28px;
 `;
 
-const PagesList = ({items}: ModuleListProps) => {
-  const {navigate} = useNavigation<ModuleNavigatorProps>();
-  const {module_id} = useRoute().params as PageListParams;
+// Styled container with white background and border radius
+const PageContainer = styled.View`
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 10px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  border: 2px solid #ffa500;
+`;
+
+// Styled text for the title with customizable fontSize and bold text
+const TitleText = styled.Text<{ fontSize?: number }>`
+  font-size: ${({ fontSize }) => (fontSize ? `${fontSize}px` : '20px')};
+  font-weight: bold;
+`;
+
+const PagesList = ({ items, fontSize }: ModuleListProps) => {
+  const { navigate } = useNavigation<ModuleNavigatorProps>();
+  const { module_id } = useRoute().params as PageListParams;
+
+  // Sort items alphabetically by name
+  const sortedItems = items.sort((a, b) => a.id - b.id);
+
   return (
     <View>
       <List.Section>
-        {items?.map(item => (
-          <List.Item
-            key={item.name}
-            id={item.name}
-            title={item.name}
-            {...(item.is_completed && {
-              right: () => (
-                <CompletedBadge
-                  source={require('../../assets/images/completed.png')}
-                />
-              ),
-            })}
-            onPress={() => {
-              navigate('Page', {
-                module_id: module_id,
-                page_id: item.id,
-                audio: item.audio,
-                screenOptions: {
-                  title: item.name,
-                },
-              });
-            }}
-          />
+        {sortedItems?.map(item => (
+          // Wrap each List.Item in the PageContainer
+          <PageContainer key={item.id.toString()}>
+            <List.Item
+              id={item.name}
+              title={<TitleText fontSize={fontSize}>{item.name}</TitleText>}
+              {...(item.is_completed && {
+                right: () => (
+                  <CompletedBadge
+                    source={require('../../assets/images/completed.png')}
+                  />
+                ),
+              })}
+              onPress={() => {
+                navigate('Page', {
+                  module_id: module_id,
+                  page_id: item.id,
+                  audio: item.audio,
+                  screenOptions: {
+                    title: item.name,
+                  },
+                });
+              }}
+            />
+          </PageContainer>
         ))}
       </List.Section>
     </View>
