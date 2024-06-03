@@ -29,10 +29,11 @@ const CompletedBadge = styled.Image`
 const PageContainer = styled.View`
   background-color: #ffffff;
   border-radius: 20px;
-  padding: 10px;
-  margin-top: 20px;
+  padding: 15px;
+  margin-top: 0px;
   margin-left: 20px;
   margin-right: 20px;
+  margin-bottom: 20px;
   border: 2px solid #ffa500;
 `;
 

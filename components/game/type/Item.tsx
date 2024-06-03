@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/native';
 import {Text, ProgressBar} from 'react-native-paper';
+
 const ItemContainer = styled.Pressable`
   background-color: #fff;
   padding: 20px;
@@ -9,6 +10,7 @@ const ItemContainer = styled.Pressable`
   elevation: 5;
   border: 1px solid #ffa500;
 `;
+
 const ItemHeader = styled(Text)`
   font-size: 24px;
   font-weight: bold;
@@ -18,7 +20,6 @@ const ItemHeader = styled(Text)`
 const SubHeader = styled(Text)`
   font-size: 14px;
   margin-bottom: 10px;
-  text
 `;
 
 const ItemLabel = styled(Text)`
@@ -48,6 +49,8 @@ interface ItemProps {
 }
 
 const Item = ({title, subTitle, total, completed, onPress}: ItemProps) => {
+  const isCompleted = completed === total;
+
   return (
     <ItemContainer onPress={onPress}>
       <ItemHeader>{title}</ItemHeader>
@@ -59,7 +62,7 @@ const Item = ({title, subTitle, total, completed, onPress}: ItemProps) => {
         </Text>
       </ItemDetailContainer>
       <ItemDetailContainer>
-        <ItemLabel>Completed</ItemLabel>
+        {isCompleted && <ItemLabel>Completed</ItemLabel>}
       </ItemDetailContainer>
       <StyledProgressBar progress={completed / total} color={'#4CDF5B'} />
     </ItemContainer>

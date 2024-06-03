@@ -7,6 +7,18 @@ type RootStackParamList = {
   Profile: undefined;
 };
 
+type  Gologin = {
+  navigate(arg0: string): unknown;
+  Login: undefined;
+  Game: undefined;
+};
+
+type Navbar = {
+  Dashboard: undefined;
+  Module: undefined;
+  Game: undefined;
+};
+
 type PageListParams = {
   module_id: number;
   screenOptions?: {
@@ -67,4 +79,6 @@ export type {
   PlayGameParams,
   PageListParams,
   PageParams,
+  Navbar,
+  Gologin,
 };

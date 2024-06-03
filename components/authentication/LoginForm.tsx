@@ -121,7 +121,7 @@ const LoginForm = () => {
     <View style={{backgroundColor: 'white', padding: 30, borderRadius: 20}}>
       <Text adjustsFontSizeToFit minimumFontScale={0.5}>Forgot Password?</Text>
       <Text adjustsFontSizeToFit minimumFontScale={0.5}> </Text>
-      <Text adjustsFontSizeToFit minimumFontScale={30}>"Kindly contact admin@gmail.com for assistance with resetting your password."</Text>
+      <Text adjustsFontSizeToFit minimumFontScale={30}>"Kindly contact bislang@gmail.com for assistance with resetting your password."</Text>
       {/* Add your forgot password form here */}
       <Button onPress={() => setForgotPasswordModalVisible(false)}>Close</Button>
     </View>

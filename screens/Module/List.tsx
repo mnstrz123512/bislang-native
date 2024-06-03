@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect } from 'react';
 import styled from '@emotion/native';
-import { ImageBackground, Text, ActivityIndicator, ScrollView } from 'react-native'; // Import ScrollView
+import { ImageBackground, Text, ActivityIndicator, ScrollView, Image } from 'react-native'; // Added Image import
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ModuleStackParamList } from 'types';
+import { ModuleStackParamList, Navbar } from 'types';
 import Item from '@components/game/type/Item';
 import { useModules } from '@services/queries/module';
 
@@ -17,16 +17,40 @@ const BackgroundImage = styled(ImageBackground)`
   flex: 1;
 `;
 
-const ScrollViewContainer = styled.ScrollView`
+const ModuleTypeListContainer = styled.View`
   flex: 1;
+  padding: 20px;
+  margin-bottom: 30px;
 `;
 
-type ActivityNavigationProps = StackNavigationProp<
-  ModuleStackParamList,
-  'List'
->;
+const Footer = styled.View`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: white;
+  padding: 10px 0;
+  border-top-width: 1px;
+  border-top-color: #ccc;
+`;
 
-// Define a type for the module data
+const FooterButton = styled.TouchableOpacity`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+`;
+
+// Styled component for the image icon
+const FooterImage = styled(Image)`
+  width: 25px; // Adjust the width and height as per your icon dimensions
+  height: 25px;
+`;
+
+type ActivityNavigationProps = StackNavigationProp<ModuleStackParamList, 'List'>;
+type NavbarNavigationProps = StackNavigationProp<Navbar>;
+
 interface ModuleData {
   id: number;
   name: string;
@@ -36,6 +60,7 @@ interface ModuleData {
 
 const GameTypeList = () => {
   const navigate = useNavigation<ActivityNavigationProps>();
+  const navbarNavigate = useNavigation<NavbarNavigationProps>();
   const { data, isLoading, isError, refetch } = useModules();
 
   useEffect(() => {
@@ -47,30 +72,22 @@ const GameTypeList = () => {
   useFocusEffect(
     useCallback(() => {
       refetch();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
   );
 
-  // Sort the data array based on the id property
   const sortedData = data?.sort((a: ModuleData, b: ModuleData) => a.id - b.id);
 
   return (
-    <BackgroundImage
-      source={require('../../assets/images/rens.png')} // Specify the correct path to your image
-      resizeMode="cover"
-    >
-      <ScrollViewContainer>
-        {isLoading ? (
-          <LoadingContainer>
-            <ActivityIndicator size="large" color="#0000ff" />
-            <Text>Loading...</Text>
-          </LoadingContainer>
-        ) : (
-          sortedData?.map(
-            (
-              { id, name, total_pages, total_completed_pages }: ModuleData,
-              index: number
-            ) => (
+    <BackgroundImage source={require('../../assets/images/bgmod.png')}>
+      <ModuleTypeListContainer>
+        <ScrollView>
+          {isLoading ? (
+            <LoadingContainer>
+              <ActivityIndicator size="large" color="#0000ff" />
+              <Text>Loading...</Text>
+            </LoadingContainer>
+          ) : (
+            sortedData?.map(({ id, name, total_pages, total_completed_pages }: ModuleData, index: number) => (
               <Item
                 key={index}
                 title={name}
@@ -86,10 +103,22 @@ const GameTypeList = () => {
                   });
                 }}
               />
-            )
-          )
-        )}
-      </ScrollViewContainer>
+            ))
+          )}
+        </ScrollView>
+      </ModuleTypeListContainer>
+      <Footer>
+        {/* Use FooterImage instead of FooterButtonText */}
+        <FooterButton onPress={() => navbarNavigate.navigate('Dashboard')}>
+          <FooterImage source={require('../../assets/images/home.png')} />
+        </FooterButton>
+        <FooterButton onPress={() => navbarNavigate.navigate('Module')}>
+          <FooterImage source={require('../../assets/images/book.png')} />
+        </FooterButton>
+        <FooterButton onPress={() => navbarNavigate.navigate('Game')}>
+          <FooterImage source={require('../../assets/images/console.png')} />
+        </FooterButton>
+      </Footer>
     </BackgroundImage>
   );
 };

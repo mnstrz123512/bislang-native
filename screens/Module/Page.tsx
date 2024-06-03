@@ -58,7 +58,7 @@ const Page = () => {
   }, [mutateAsync, params.module_id, params.page_id]);
 
   return (
-    <BackgroundImage source={require('../../assets/images/ggg.png')} style={{ flex: 1 }}>
+    <BackgroundImage source={require('../../assets/images/bgmods.png')} style={{ flex: 1 }}>
       <Container>
         {data?.image && (
           <ImageWrapper>

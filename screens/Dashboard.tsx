@@ -1,16 +1,20 @@
 import React from 'react';
 import styled from '@emotion/native';
-import { Dimensions, ImageBackground, Image } from 'react-native';
+import { Dimensions, ImageBackground, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import UserDetail from '@components/dashboard/UserDetail';
 import Activities from '@components/dashboard/Activities';
+import { Gologin } from 'types';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 interface ContainerProps {
   isMobile: boolean;
 }
 
 // Define your background image source
-const backgroundImage = require('./../assets/images/rens.png');
-const headerImage = require('./../assets/images/hihi.png');
+const backgroundImage = require('./../assets/images/logoo.png');
+const headerImage = require('./../assets/images/logog2.png');
+const logoutButtonImage = require('./../assets/images/log.png');
 
 const Container = styled(ImageBackground)<ContainerProps>`
   flex: 1;
@@ -31,24 +35,49 @@ const InnerContainer = styled.View<ContainerProps>`
 `;
 
 const HeaderImage = styled.Image`
-  width: 500px; /* Adjust width as needed */
-  height: 300px; /* Adjust height as needed */
+  width: 520px; /* Adjust width as needed */
+  height: 230px; /* Adjust height as needed */
+
+
+`;
+
+const HeaderContainer = styled.View`
   
-  top: 25px; 
+  top: 30px;
+`;
+
+const LogoutButton = styled.TouchableOpacity`
+  position: absolute;
+  top: 20px;
+  right: 30px;
+`;
+
+const LogoutButtonImage = styled.Image`
+  width: 24px; /* Adjust width as needed */
+  height: 24px; /* Adjust height as needed */
 `;
 
 const Dashboard = () => {
-  const width = Dimensions.get('window').width;
+  const navigation = useNavigation<Gologin>();
 
+  const width = Dimensions.get('window').width;
   const isMobile = width < 768;
 
+  const handleLogout = () => {
+    // Navigate to the login page
+    navigation.navigate('Login');
+  };
+
   return (
-    <Container 
-      source={backgroundImage} // Set the background image source here
-      isMobile={isMobile}
-    >
-      <HeaderImage source={headerImage} />
+    <Container source={backgroundImage} isMobile={isMobile}>
+      <HeaderContainer>
+        <HeaderImage source={headerImage} />
+      </HeaderContainer>
       <InnerContainer isMobile={isMobile}>
+        {/* Logout Button */}
+        <LogoutButton onPress={handleLogout}>
+          <LogoutButtonImage source={logoutButtonImage} />
+        </LogoutButton>
         <UserDetail />
         <Activities />
       </InnerContainer>

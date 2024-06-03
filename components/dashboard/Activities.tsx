@@ -42,10 +42,7 @@ const StyledImage = styled.Image`
   height: 100px;
 `;
 
-type ActivityNavigationProps = StackNavigationProp<
-  RootStackParamList,
-  'Module'
->;
+type ActivityNavigationProps = StackNavigationProp<RootStackParamList>;
 
 const Activities = () => {
   const navigate = useNavigation<ActivityNavigationProps>();

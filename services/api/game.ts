@@ -72,7 +72,7 @@ const postUserProgress = async (
 
   try {
     const response = await axios.post(
-      `${baseURL}/games/${options.id}/progress`,
+      `${baseURL}/games/${options.id}/progress/`,
       {
         is_completed: options.is_completed,
       },

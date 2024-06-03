@@ -25,17 +25,18 @@ const UserDetailContainer = styled.View`
 
 type UserDetailNavigationProps = StackNavigationProp<
   RootStackParamList,
-  'Dashboard'
+  'Dashboard' 
 >;
 
 const UserDetail = () => {
   const {logout, ...rest} = useAuth();
 
   const navigate = useNavigation<UserDetailNavigationProps>();
+  //BUtton Design for Badge profile
   return (
     <UserDetailContainer>
       <Container>
-        <View>
+        <View >
           {rest.profileImage ? (
             <Avatar.Image size={100} source={{uri: rest.profileImage}} />
           ) : (
@@ -45,24 +46,17 @@ const UserDetail = () => {
             />
           )}
         </View>
+         
         <TextContainer>
           <Text variant="headlineMedium">{`${rest.firstName} ${rest.lastName}`}</Text>
-          <Text variant="bodyMedium">{rest.emailAddress}</Text>
-          <Button mode="text" onPress={() => navigate.navigate('Profile')}>
+          
+          
+          <Button mode="text" onPress={() => navigate.navigate('Profile')} style={{ backgroundColor: '#000000', borderRadius: 30, paddingVertical: 1,  marginTop:2,  }}
+  labelStyle={{ color: '#ffffff', fontSize: 18 }}>
             Badge Profile
           </Button>
-          <Button
-            mode="text"
-            onPress={() => {
-              logout();
 
-              navigate.reset({
-                index: 0,
-                routes: [{name: 'Login'}],
-              });
-            }}>
-            Logout
-          </Button>
+          
         </TextContainer>
       </Container>
     </UserDetailContainer>

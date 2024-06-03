@@ -333,7 +333,7 @@ const Game: React.FC = () => {
 
   return (
     <ScreenContainer>
-      <ImageBackground source={require('../../assets/images/emman.png')} style={{flex: 1}}>
+      <ImageBackground source={require('../../assets/images/bggames.png')} style={{flex: 1}}>
         <GameContainer>
           {data?.image && <StyledImage source={{uri: data.image}} />}
 
