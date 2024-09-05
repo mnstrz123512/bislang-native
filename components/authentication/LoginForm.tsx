@@ -1,4 +1,4 @@
-import {View, Modal} from 'react-native';
+import {View, Modal, Image} from 'react-native';
 import styled from '@emotion/native';
 import React, {useState} from 'react';
 import {Button, Text} from 'react-native-paper';
@@ -19,6 +19,7 @@ const FormContainer = styled.View`
   width: 100%;
   gap: 20px;
 `;
+
 const SignInOptions = styled.View`
   gap: 20px;
   align-items: center;
@@ -110,23 +111,26 @@ const LoginForm = () => {
         </Button>
 
         <SignInOptions>
-          <Button onPress={handleGoogleSignIn} icon={'google'}>
-            Sign in with Google
+          <Button onPress={handleGoogleSignIn} mode="outlined">
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Image source={require('../../assets/images/google.png')} style={{width: 20, height: 20, marginRight: 10}} />
+              <Text>Sign in with Google</Text>
+            </View>
           </Button>
         </SignInOptions>
       </FormContainer>
 
       <Modal visible={forgotPasswordModalVisible} onDismiss={() => setForgotPasswordModalVisible(false)} transparent>
-  <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)'}}>
-    <View style={{backgroundColor: 'white', padding: 30, borderRadius: 20}}>
-      <Text adjustsFontSizeToFit minimumFontScale={0.5}>Forgot Password?</Text>
-      <Text adjustsFontSizeToFit minimumFontScale={0.5}> </Text>
-      <Text adjustsFontSizeToFit minimumFontScale={30}>"Kindly contact bislang@gmail.com for assistance with resetting your password."</Text>
-      {/* Add your forgot password form here */}
-      <Button onPress={() => setForgotPasswordModalVisible(false)}>Close</Button>
-    </View>
-  </View>
-</Modal>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)'}}>
+          <View style={{backgroundColor: 'white', padding: 30, borderRadius: 20}}>
+            <Text adjustsFontSizeToFit minimumFontScale={0.5}>Forgot Password?</Text>
+            <Text adjustsFontSizeToFit minimumFontScale={0.5}> </Text>
+            <Text adjustsFontSizeToFit minimumFontScale={30}>"Kindly contact MTBPal@gmail.com for assistance with resetting your password."</Text>
+            {/* Add your forgot password form here */}
+            <Button onPress={() => setForgotPasswordModalVisible(false)}>Close</Button>
+          </View>
+        </View>
+      </Modal>
     </FormikProvider>
   );
 };

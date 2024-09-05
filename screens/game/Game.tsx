@@ -28,7 +28,7 @@ const StyledImage = styled.Image`
   align-self: center;
   margin-bottom: 30px;
   margin-top: 60px;
-  border: 1px solid #ffa500;
+  border: 2px solid #D2649A;
   border-radius: 15px; 
 `;
 
@@ -324,11 +324,11 @@ const Game: React.FC = () => {
   };
 
   const mechanicsContainerStyle = {
-    backgroundColor: 'white',
-    padding: 27,
-    margin: 30,
-    flex: 0.4,
-    borderRadius: 40,
+    backgroundColor: '#FFEEA9',
+    padding: 40,
+    margin: 20,
+    flex: 0.5,
+    borderRadius: 30,
   };
 
   return (
@@ -405,10 +405,15 @@ const Game: React.FC = () => {
           contentContainerStyle={mechanicsContainerStyle}>
           <ModalText>Game Mechanics</ModalText>
           <Text> </Text>
-          <Text>1. You need to fill in the correct letters to complete the word.</Text>
-          <Text>2. You can use up to 2 hints per game.</Text>
-          <Text>3. Click the letters below to fill in the blanks.</Text>
-          <Text>4. Use the clear button to reset your answer.</Text>
+          <Text>1.  You need to fill in the correct letters to complete the word. (Kinahanglan nga imong pun-an og husto ang mga letra aron mahuman ang pulong.)</Text>
+          
+          <Text> </Text>
+          <Text>2.  You can use up to 2 hints per game. (Pwede kang maggamit og hangtud sa 2 ka mga pahibalo kada dula.)</Text>
+          <Text> </Text>
+          <Text>3.  Click the letters below to fill in the blanks. (I-klik ang mga letra sa ubos aron pun-an ang mga espasyo) </Text>
+          <Text> </Text>
+          <Text>4.  Use the clear button to reset your answer. (Gamita ang botun nga clear aron ma-reset ang imong tubag.)</Text>
+          <Text> </Text>
           <CloseButton mode="contained" onPress={() => setMechanicsModalVisible(false)}>
             Close
           </CloseButton>

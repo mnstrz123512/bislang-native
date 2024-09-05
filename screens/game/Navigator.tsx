@@ -48,7 +48,7 @@ const GameNavigator = () => (
         name="PlayGame"
         component={Game}
         options={{
-          headerTitle: () => <LogoTitle />,
+          headerTitle: () => <LogoTitle title="Game (Duwa)" />,
         }}
       />
     </ModuleStack.Navigator>

@@ -78,7 +78,7 @@ const GameTypeList = () => {
   const sortedData = data?.sort((a: ModuleData, b: ModuleData) => a.id - b.id);
 
   return (
-    <BackgroundImage source={require('../../assets/images/bgmod.png')}>
+    <BackgroundImage source={require('../../assets/images/bgmods.png')}>
       <ModuleTypeListContainer>
         <ScrollView>
           {isLoading ? (

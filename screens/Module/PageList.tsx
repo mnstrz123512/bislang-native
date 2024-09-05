@@ -70,7 +70,7 @@ export default function PageList() {
 
   return (
     <BackgroundImage
-      source={require('../../assets/images/bgmod.png')} // Specify the correct path to your image
+      source={require('../../assets/images/bgmods.png')} // Specify the correct path to your image
       resizeMode="cover"
     >
       <Container isMobile={useIsMobile()}>
